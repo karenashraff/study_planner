@@ -1,5 +1,5 @@
 import streamlit as st
-import anthropic
+import requests
 
 st.title("📚 AI Study Planner")
 
@@ -8,20 +8,22 @@ task = st.text_area("What is your study problem?")
 
 if st.button("Generate Plan 🚀"):
     if subject and task:
-        client = anthropic.Anthropic(api_key="SECRET123")  # ← put your key
-
-        message = client.messages.create(
-            model="claude-sonnet-4-20250514",
-            max_tokens=1024,
-            messages=[
+        headers = {
+            "Authorization": "Bearer YOUR_GROQ_KEY",  # ← we'll get this
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "model": "llama3-8b-8192",
+            "messages": [
                 {
                     "role": "user",
                     "content": f"You are an expert study coach. Create a personalized study plan for a student studying {subject} who has this problem: {task}. Give practical steps."
                 }
             ]
-        )
-
+        }
+        res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload)
+        result = res.json()
         st.write("### Result:")
-        st.write(message.content[0].text)
+        st.write(result["choices"][0]["message"]["content"])
     else:
         st.warning("Please enter subject and task")
