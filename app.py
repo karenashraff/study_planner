@@ -9,7 +9,7 @@ task = st.text_area("What is your study problem?")
 if st.button("Generate Plan 🚀"):
     if subject and task:
         headers = {
-            "Authorization": f"Bearer {st.secrets['GROQ_API_KEY']}",  # ← we'll get this
+            "Authorization": f"Bearer {st.secrets['GROQ_API_KEY']}",
             "Content-Type": "application/json"
         }
         payload = {
@@ -21,7 +21,11 @@ if st.button("Generate Plan 🚀"):
                 }
             ]
         }
-        res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload)
+        res = requests.post(
+            "https://api.groq.com/openai/v1/chat/completions",
+            headers=headers,
+            json=payload
+        )
         result = res.json()
         st.write("### Result:")
         st.write(result["choices"][0]["message"]["content"])
