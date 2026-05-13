@@ -9,7 +9,7 @@ task = st.text_area("What is your study problem?")
 if st.button("Generate Plan 🚀"):
     if subject and task:
         headers = {
-            "Authorization": "Bearer YOUR_GROQ_KEY",  # ← we'll get this
+            "Authorization": f"Bearer {st.secrets['GROQ_API_KEY']}",  # ← we'll get this
             "Content-Type": "application/json"
         }
         payload = {
