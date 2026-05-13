@@ -27,7 +27,6 @@ if st.button("Generate Plan 🚀"):
             json=payload
         )
         result = res.json()
-        st.write("### Result:")
-        st.write(result["choices"][0]["message"]["content"])
+        st.write(result)  # ← shows full response so we can see the error
     else:
         st.warning("Please enter subject and task")
