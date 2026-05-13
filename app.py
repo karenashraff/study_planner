@@ -13,7 +13,7 @@ if st.button("Generate Plan 🚀"):
             "Content-Type": "application/json"
         }
         payload = {
-           "model": "llama-3.3-70b-versatile",
+            "model": "llama-3.3-70b-versatile",
             "messages": [
                 {
                     "role": "user",
@@ -27,6 +27,7 @@ if st.button("Generate Plan 🚀"):
             json=payload
         )
         result = res.json()
-       st.write(result["choices"][0]["message"]["content"])  # ← shows full response so we can see the error
+        st.write("### Result:")
+        st.write(result["choices"][0]["message"]["content"])
     else:
         st.warning("Please enter subject and task")
